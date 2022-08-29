@@ -1,0 +1,127 @@
+// Protobuf version
+syntax = "proto3";
+
+// Generate multiple java classes
+option java_multiple_files = true;
+
+// Java package name
+option java_package = "io.xsor.mameviewer";
+
+// Golang package name
+option go_package = "xsor.io/mameviewer";
+
+package mameviewer;
+
+/**
+  Services: There are 3 main services listed in this proto.
+ */
+
+/**
+The subscriber service can create new users (subscriptions) and retrieve them
+ */
+service Subscriber {
+  rpc CreateSubscriber(CreateSubscriberRequest) returns (CreateSubscriberResponse);
+  rpc GetSubscriber(GetSubscriberRequest) returns (GetSubscriberResponse);
+}
+
+/**
+The entitlements service returns a list of content that the subscriber is entitled to view
+ */
+service Entitlements {
+  rpc GetEntitlements(EntitlementRequest) returns (EntitlementResponse);
+}
+
+/**
+The content library service returns streamable links for a given entitlement
+ */
+service Content {
+  rpc GetMedia(MediaRequest) returns (MediaResponse) {}
+}
+
+/**
+  Messages de
+ */
+
+/**
+Enum describing access tiers for subscribers
+ */
+enum Tier {
+  UNKNOWN = 0;
+  BASIC = 1;
+  PREMIUM = 2;
+}
+
+/**
+Message format for creating a subscriber
+ */
+message CreateSubscriberRequest {
+  string name = 1;
+  string email = 2;
+  Tier tier = 3;
+}
+
+/**
+Message format for subscriber create response
+A non-zero subscriber id indicates successful creation
+ */
+message CreateSubscriberResponse {
+  string subscriberId = 1;
+}
+
+/**
+Message format for requesting subscriber details
+ */
+message GetSubscriberRequest {
+  string subscriberId = 1;
+}
+
+/**
+Message format for a subscriber response
+ */
+message GetSubscriberResponse {
+  string subscriberId = 1;
+  string name = 2;
+  string email = 3;
+  Tier tier = 4;
+}
+
+/**
+Message format for a list of entitlements
+ */
+message EntitlementRequest {
+  string subscriberId = 1;
+}
+
+/**
+Message format for a list of entitlements
+ */
+message EntitlementResponse {
+  repeated EntitlementList entitlements = 1;
+}
+
+/**
+Single entitlement message
+ */
+message EntitlementList {
+  string entitlementId = 1;
+  string title = 2;
+  string duration = 3;
+  string coverArt = 4;
+  string rating = 5;
+  Tier tier = 6;
+}
+
+/**
+Message format for media request
+ */
+message MediaRequest {
+  string entitlementId = 1;
+}
+
+/**
+Message format for media response
+ */
+message MediaResponse {
+  string entitlementId = 1;
+  string streamableLink = 2;
+}

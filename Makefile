@@ -56,6 +56,6 @@ build-bff-service: stop-bff-service
 
 run-bff-service: build-bff-service
 	docker rm bff-service || exit 0
-	docker run -d --name mameviewer-bff -p 8080:8080 mameviewer/bff-service:1.0.0
+	docker run -d --name mameviewer-bff-service -p 8080:8080 mameviewer/bff-service:1.0.0
 
 run-all: run-subscriber-service run-entitlements-service run-content-service run-bff-service

@@ -73,7 +73,7 @@ function generateEntitlementDb() {
             entitlementId: v4(),
             title: title,
             duration: generateRandomInteger(60, 183) * 60,
-            coverArt: 'https://cataas.com/cat/says/' + title,
+            coverArt: 'https://cataas.com/cat/says/' + title + "?size=10&width=100&height=100",
             rating: generateRandomInteger(0, 100) / 10,
             tier: mameViewer.Tier.type.value[generateRandomInteger(1, 2)].name
         });

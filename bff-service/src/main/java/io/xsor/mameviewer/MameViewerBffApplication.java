@@ -178,7 +178,8 @@ public class MameViewerBffApplication {
         }
 
         public String getDuration() {
-            return duration;
+            int d = Integer.parseInt(this.duration);
+            return String.format("%02d:%02d:%02d", d / 3600, (d / 60) % 60, d % 60);
         }
 
         public void setDuration(String duration) {

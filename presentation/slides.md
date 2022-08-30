@@ -15,6 +15,8 @@ gRPC + protobuf demo written in Java, NodeJS and Go
 | Java/Node/Go: | Backend Microservices       |
 | Docker:       | Containerizing              |
 | Sonarqube:    | Static Analysis & Reporting |
+| Spring/Boot:  | Backend-for-frontend (BFF)  |
+ | VueJS:        | Frontend                    |
 ---
 
 # Protocol Buffers

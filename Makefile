@@ -45,4 +45,17 @@ run-content-service: build-content-service
 	docker rm mameviewer-content-service || exit 0
 	docker run -d --name mameviewer-content-service -p 9092:9092 mameviewer/content-service:1.0.0
 
-run-all: run-subscriber-service run-entitlements-service run-content-service
+stop-bff-service:
+	(docker stop mameviewer-bff-service || exit 0) || (docker rm mameviewer-bff-service || exit 0)
+
+build-bff-service: stop-bff-service
+	docker image rm mameviewer/bff-service:1.0.0 || exit 0
+	docker build ./bff-service \
+		-f bff-service/Dockerfile \
+		-t mameviewer/bff-service:1.0.0
+
+run-bff-service: build-bff-service
+	docker rm bff-service || exit 0
+	docker run -d --name mameviewer-bff -p 8080:8080 mameviewer/bff-service:1.0.0
+
+run-all: run-subscriber-service run-entitlements-service run-content-service run-bff-service

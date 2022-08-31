@@ -291,5 +291,8 @@ class: text-center
 # Learn More
 
 [Protobuf](https://developers.google.com/protocol-buffers) ·
-[gRPC Guides](https://grpc.io/) · 
+[gRPC Guides](https://grpc.io/) ·
+[maven](https://maven.apache.org/guides/getting-started/) ·
+[Spring Boot](https://spring.io/guides/gs/spring-boot/) ·
+[Docker](https://docs.docker.com/get-started/) ·
 [SonarQube Intro](https://www.bitslovers.com/how-to-use-sonarqube-with-docker-and-maven/)

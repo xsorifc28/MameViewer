@@ -9,7 +9,7 @@ RUN npm install
 
 COPY . .
 
-COPY --from=proto MameViewer.proto .
+COPY --from=proto_source . .
 
 EXPOSE 9091
 

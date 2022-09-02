@@ -12,7 +12,10 @@ stop-subscriber-service:
 
 build-subscriber-service: stop-subscriber-service
 	docker image rm mameviewer/subscriber-service:1.0.0 || exit 0
-	docker build ./subscriber-service -f subscriber-service/Dockerfile -t mameviewer/subscriber-service:1.0.0
+	docker buildx build ./subscriber-service \
+		--build-context proto_source=proto \
+		-f subscriber-service/Dockerfile \
+		-t mameviewer/subscriber-service:1.0.0
 
 run-subscriber-service: build-subscriber-service
 	docker rm mameviewer-subscriber-service || exit 0
@@ -24,7 +27,7 @@ stop-entitlements-service:
 build-entitlements-service: stop-entitlements-service
 	docker image rm mameviewer/entitlements-service:1.0.0 || exit 0
 	docker buildx build ./entitlements-service \
-		--build-context proto=subscriber-service/src/main/proto \
+		--build-context proto_source=proto \
 		-f entitlements-service/Dockerfile \
 		-t mameviewer/entitlements-service:1.0.0
 

@@ -1,12 +1,17 @@
+#syntax=docker/dockerfile:1.4
 FROM maven:3.8.6-openjdk-18-slim AS build
 
 ENV HOME=/usr/app
 
 RUN mkdir -p $HOME
 
+RUN mkdir -p $HOME/../proto
+
 WORKDIR $HOME
 
 ADD . $HOME
+
+COPY --from=proto_source . $HOME/../proto
 
 RUN --mount=type=cache,target=/root/.m2 mvn -f $HOME/pom.xml \
     clean \

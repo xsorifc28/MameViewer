@@ -58,4 +58,17 @@ run-bff-service: build-bff-service
 	docker rm bff-service || exit 0
 	docker run -d --name mameviewer-bff-service -p 8080:8080 mameviewer/bff-service:1.0.0
 
-run-all: run-subscriber-service run-entitlements-service run-content-service run-bff-service
+stop-frontend-service:
+	(docker stop mameviewer-frontend-service || exit 0) || (docker rm mameviewer-frontend-service || exit 0)
+
+build-frontend-service: stop-frontend-service
+	docker image rm mameviewer/frontend-service:1.0.0 || exit 0
+	docker build ./frontend-service \
+		-f frontend-service/Dockerfile \
+		-t mameviewer/frontend-service:1.0.0
+
+run-frontend-service: build-frontend-service
+	docker rm frontend-service || exit 0
+	docker run -d --name mameviewer-frontend-service -p 3000:3000 mameviewer/frontend-service:1.0.0
+
+run-all: run-subscriber-service run-entitlements-service run-content-service run-bff-service run-frontend-service

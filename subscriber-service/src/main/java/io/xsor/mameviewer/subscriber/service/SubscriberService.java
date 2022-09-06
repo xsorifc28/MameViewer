@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+// TODO: Add a service to proto for deleting a subscriber and changing a subscriber's tier
 public class SubscriberService extends SubscriberGrpc.SubscriberImplBase {
 
     // In-place db to hold subscribers
@@ -25,6 +26,7 @@ public class SubscriberService extends SubscriberGrpc.SubscriberImplBase {
      */
     @Override
     public void createSubscriber(CreateSubscriberRequest request, StreamObserver<CreateSubscriberResponse> responseObserver) {
+        // TODO: Check if the email is in use by another subscriber and return appropriate error if so
         if (Utils.isSubscriberInvalid(request)) {
             responseObserver.onError(Status.FAILED_PRECONDITION.withDescription("Request is missing required fields").asRuntimeException());
         } else {
